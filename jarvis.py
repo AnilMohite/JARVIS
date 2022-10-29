@@ -11,7 +11,7 @@ voices = engine.getProperty('voices')
 # print(voices[1].id) for female
 engine.setProperty('voice', voices[0].id)
 
-
+# speak function
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
