@@ -62,7 +62,7 @@ def mainExecution(query):
 # training data 
 with open('./training_data.json','r') as f:
     intents = json.load(f)
-# print(intents)
+
 training_data = []
 labels = []
 
