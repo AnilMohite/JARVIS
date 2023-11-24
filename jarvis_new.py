@@ -1,5 +1,8 @@
 import pyttsx3
 import speech_recognition as sr
+import random
+import warnings
+warnings.simplefilter('ignore')
 
 def speak(text):
     engine = pyttsx3.init()
@@ -26,14 +29,24 @@ def speechrecognition():
         except:
             return ""
 
-def MainExecution(query):
-    query = query.lower()
-    if "hello" in query:
-        speak('Hi sir, welcome back!')
+def mainExecution(query):
+    Query = str(query).lower()
 
-    elif "bye" in query:
-        speak('Nice to see you...')
+    if "hello" in Query:
+        speak("Hi Anil, Welcome Back!")
+    
+    elif "bye" in Query:
+        speak("Nice to meet you bro, Have a nice day!")
 
+    elif "time" in Query:
+        from datetime import datetime
+        time = datetime.now().strftime("%I:%M %p")
+        speak(f"The time now is  : {time}")
+
+print("")
+print("==> Jarvis AI: Hello! How can I assist you?")
+print("")
 while True:
+    # query = str(input("Enter Query: "))
     query = speechrecognition()
-    MainExecution(query)
+    mainExecution(query)
