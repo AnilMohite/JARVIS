@@ -411,5 +411,42 @@
             "Let's discuss your financial goals and plans.",
             "Tell me about your financial situation or goals."
         ]
+    },
+    "about": {
+        "patterns": [
+            "Tell me about yourself",
+            "What can you do?"
+        ],
+        "responses": [
+            "I'm a chatbot designed to assist with various queries. Ask me anything!"
+        ]
+    },
+    "location_provided": {
+        "patterns": [
+            "In New York",
+            "London"
+        ],
+        "responses": [
+            "The weather in that location is..."
+        ]
+    },
+    "other_queries": {
+        "patterns": [
+            "What's your favorite color?",
+            "Do you dream?"
+        ],
+        "responses": [
+            "I'm here to assist with specific queries. How can I help you today?"
+        ]
+    },
+    "open": {
+        "patterns": [
+            "open youtube",
+            "open google",
+            "open stackoverflow"
+        ],
+        "responses": [
+            "Opening ..."
+        ]
     }
 }

@@ -8,6 +8,10 @@ import json
 import warnings
 warnings.simplefilter('ignore')
 import random
+import webbrowser
+import os
+import smtplib
+import wikipedia
 
 # first download nltk requied data 
 # nltk.download("punkt")
@@ -37,6 +41,14 @@ def speechrecognition():
         except:
             return ""
 
+def sendEmail(to, content):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.login('youremail@gmail.com', 'your-password')
+    server.sendmail('youremail@gmail.com', to, content)
+    server.close()
+
 def mainExecution(query):
     Query = str(query).lower()
 
@@ -50,6 +62,46 @@ def mainExecution(query):
         from datetime import datetime
         time = datetime.now().strftime("%I:%M %p")
         speak(f"The time now is  : {time}")
+    
+    elif 'open youtube' in query:
+        speak("opening youtube...")
+        webbrowser.open("youtube.com")
+
+    elif 'open google' in query:
+        speak("opening google...")
+        webbrowser.open("google.com")
+
+    elif 'open stack overflow' in query:
+        speak("opening stackoverflow...")
+        webbrowser.open("stackoverflow.com") 
+
+    elif "open cmd" in query:
+        speak("opening cmd...")
+        os.system('start cmd')
+
+    elif "email" in query:
+        try:            
+            speak("Whom to send? Email Please?")
+            to = speechrecognition() 
+            to = to.replace(" ","").strip()
+            # to = "mohiteanil22@gmail.com"   
+            speak("What should I say?")
+            content = speechrecognition() 
+            sendEmail(to, content)
+            print(f"To : {to}, Email Content : {content}")
+            speak("Email has been sent! with")
+        except Exception as e:
+            print(e)
+            speak("Sorry my friend Anil bhai. I am not able to send this email") 
+
+    if 'wikipedia' in query:
+            speak('Searching Wikipedia...')
+            query = query.replace("wikipedia", "")
+            results = wikipedia.summary(query, sentences=2)
+            speak("According to Wikipedia")
+            print(results)
+            speak(results)
+    
 
 # print("")
 # print("==> Jarvis AI: Hello! How can I assist you?")
@@ -95,9 +147,12 @@ while True:
 
     intent = predict_intent(user_input)
     if intent in intents:
-        responses = intents[intent]['responses']
-        response = random.choice(responses)
-        speak(response)
+        if intent == "open":
+            mainExecution(user_input)
+        else:
+            responses = intents[intent]['responses']
+            response = random.choice(responses)
+            speak(response)
 
     else:
         speak("AI Assistant: Sorry, I'm not sure how to respond to that. Try Again!")
