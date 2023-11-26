@@ -6,12 +6,18 @@ import nltk
 from sklearn.model_selection import train_test_split
 import json
 import warnings
-warnings.simplefilter('ignore')
 import random
 import webbrowser
 import os
 import smtplib
 import wikipedia
+from clap import mainClapExe
+
+
+warnings.simplefilter('ignore')
+
+# clap function call - when clap is true then only controll flow to next line otherwise not
+mainClapExe()
 
 # first download nltk requied data 
 # nltk.download("punkt")
@@ -25,7 +31,7 @@ def speak(text):
     engine.say(text=text)
     engine.runAndWait()
 
-def speechrecognition():
+def speechRecognition():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print('Listening.....')
@@ -82,11 +88,11 @@ def mainExecution(query):
     elif "email" in query:
         try:            
             speak("Whom to send? Email Please?")
-            to = speechrecognition() 
+            to = speechRecognition() 
             to = to.replace(" ","").strip()
             # to = "mohiteanil22@gmail.com"   
             speak("What should I say?")
-            content = speechrecognition() 
+            content = speechRecognition() 
             sendEmail(to, content)
             print(f"To : {to}, Email Content : {content}")
             speak("Email has been sent! with")
@@ -108,7 +114,7 @@ def mainExecution(query):
 # print("")
 # while True:
 #     # query = str(input("Enter Query: "))
-#     query = speechrecognition()
+#     query = speechRecognition()
 #     mainExecution(query)
 
 # training data 
@@ -132,7 +138,7 @@ model.fit(X_train, Y_train)
 
 predictions = model.predict(X_test)
 
-def predict_intent(user_input):
+def predictIntent(user_input):
     user_input = user_input.lower()
     input_vector = Vectorizer.transform([user_input])
     intent = model.predict(input_vector)[0]
@@ -140,12 +146,12 @@ def predict_intent(user_input):
 
 print("AI Assistant: Hello! How can I assist you?")
 while True:
-    user_input = speechrecognition()
+    user_input = speechRecognition()
     if user_input.lower() == 'exit':
         print("AI Assistant: Goodbye!")
         break
 
-    intent = predict_intent(user_input)
+    intent = predictIntent(user_input)
     if intent in intents:
         if intent == "open":
             mainExecution(user_input)
