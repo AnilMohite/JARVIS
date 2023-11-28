@@ -33,5 +33,5 @@ def querySender(query):
     driver.find_element(by=By.XPATH, value=xPathSendBtn).click()
     sleep(1)
 
-querySender("hello, how are you")
-sleep(50)
+querySender("hi bro..whats up..")
+sleep(15)
