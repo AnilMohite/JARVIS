@@ -25,13 +25,21 @@ driver.get(url)
 sleep(5)
 
 def querySender(query):
-    xPathInput = "/html/body/div/main/div/div/div[3]/div[1]/div[3]/div[2]/div/div[2]/textarea"
-    xPathSendBtn = "/html/body/div/main/div/div/div[3]/div[1]/div[3]/div[2]/div/button"
+    xPathInput = "/html/body/div/main/div/div/div[3]/div[1]/div[4]/div/div[2]/textarea"
+    xPathSendBtn = "/html/body/div/main/div/div/div[3]/div[1]/div[4]/div/button"    
+    try:
+        driver.find_element(by=By.XPATH, value=xPathInput).send_keys(query)
+    except Exception as e:
+        print('Error: Input xpath not found', str(e))
 
-    driver.find_element(by=By.XPATH, value=xPathInput).send_keys(query)
     sleep(1)
-    driver.find_element(by=By.XPATH, value=xPathSendBtn).click()
+    
+    try:
+        driver.find_element(by=By.XPATH, value=xPathSendBtn).click()
+    except Exception as e:
+        print('Error: Send button xpath not found', str(e))
+        
     sleep(1)
 
-querySender("hi bro..whats up..")
-sleep(15)
+querySender("hi bro. whats's the time now?")
+sleep(150)
